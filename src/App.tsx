@@ -16,14 +16,27 @@ import Grievances from "./modules/Grievances";
 import RoomIssues from "./modules/RoomIssues";
 import SeatingAssignment from "./modules/SeatingAssignment";
 import Search from "./modules/Borrowing/Search";
+import BorrowReturn from "./modules/Borrowing/BorrowReturn";
+import BorrowRequest from "./modules/Borrowing/BorrowRequest";
+import FlaggedResources from "./modules/Borrowing/FlaggedResources";
+import BorrowDashboard from "./modules/Borrowing/Dashboard";
 
 function App() {
   return (
     <Routes>
       <Route element={<SignedInLayout />} >
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/borrowing" element={<Borrowing />} />
-        <Route path="/search" element={<Search/>}/>
+        
+        <Route path="/borrowing" element={<Borrowing />} >
+          <Route path="dashboard" element={<BorrowDashboard/>}/>
+          <Route path="search" element={<Search/>}/>
+          <Route path="return" element={<BorrowReturn/>}/>
+          <Route path="request" element={<BorrowRequest/>}/>
+          <Route path="flagged" element={<FlaggedResources/>}/>
+        </Route>
+        
+        
+        
         <Route path="/seating-assignment" element={<SeatingAssignment />} />
         <Route path="/meeting-scheduler" element={<MeetingScheduler />} />
         <Route path="/bulletin-board" element={<BulletinBoard />} />
