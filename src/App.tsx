@@ -15,6 +15,7 @@ import Inventory from "./modules/Inventory";
 import Grievances from "./modules/Grievances";
 import RoomIssues from "./modules/RoomIssues";
 import SeatingAssignment from "./modules/SeatingAssignment";
+import Search from "./modules/Borrowing/Search";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route element={<SignedInLayout />} >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/borrowing" element={<Borrowing />} />
+        <Route path="/search" element={<Search/>}/>
         <Route path="/seating-assignment" element={<SeatingAssignment />} />
         <Route path="/meeting-scheduler" element={<MeetingScheduler />} />
         <Route path="/bulletin-board" element={<BulletinBoard />} />

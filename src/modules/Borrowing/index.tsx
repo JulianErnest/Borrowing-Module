@@ -3,9 +3,12 @@ import { Link, Outlet } from 'react-router-dom'
 
 function Borrowing() {
   return (
-    <>
-    <h1>Simple change</h1>
-    </>
+    <div>Borrowing
+      <a href="search">
+        <button>Search (for user side)</button>
+      </a>
+    </div>
+    
   )
 }
 
