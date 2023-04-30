@@ -71,7 +71,7 @@ const styles: any = {
     fontSize: 15,
   },
   contentContainer: {
-    width: "98vh",
+    width: "84.4vw",
     height: "100vh",
     marginLeft: "12vw",
     marginTop: "6vh",
