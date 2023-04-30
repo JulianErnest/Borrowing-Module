@@ -6,6 +6,7 @@ import { colors } from "../constants/colors";
 import { SignedInLinks } from "../constants/links";
 import { getLinkClass } from "../helpers/functions";
 
+
 function SignedInLayout() {
   const outlet = useOutlet();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const styles: any = {
     position: "absolute",
     top: "6vh",
     width: "12%",
-    height: "100vh",
+    minHeight: "100%",
     backgroundColor: colors.brand,
     display: "flex",
     flexDirection: "column",

@@ -20,8 +20,8 @@ function Borrowing() {
     return (
       <>
        <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
-        <Link to="dashboard"><h5 style={{color: isActive('dashboard') ? colors.brand : colors.text}}>Dashboard</h5></Link>
-        <Link to="pending-requests"><h5 style={{color: isActive('pending-requests') ? colors.brand : colors.text, paddingLeft: 50}}>Pending Requests </h5></Link>
+        <Link to="dashboard"><h4 style={{color: isActive('dashboard') ? colors.brand : colors.text}}>Dashboard</h4></Link>
+        <Link to="pending-requests"><h4 style={{color: isActive('pending-requests') ? colors.brand : colors.text, paddingLeft: 50}}>Pending Requests </h4></Link>
       </div>
         <Outlet />
       </>
@@ -29,7 +29,6 @@ function Borrowing() {
   }else{
     return (
       <div>
-        
         <Link to="search">Search  </Link>
         <Link to="request">Request  </Link>
         <Outlet />

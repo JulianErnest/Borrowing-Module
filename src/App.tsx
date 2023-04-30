@@ -20,6 +20,7 @@ import BorrowReturn from "./modules/Borrowing/BorrowReturn";
 import BorrowRequest from "./modules/Borrowing/BorrowRequest";
 import FlaggedResources from "./modules/Borrowing/FlaggedResources";
 import BorrowDashboard from "./modules/Borrowing/Dashboard";
+import PendingRequests from "./modules/Borrowing/PendingRequests";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         
         <Route path="/borrowing" element={<Borrowing />} >
           <Route path="dashboard" element={<BorrowDashboard/>}/>
-          <Route path="search" element={<Search/>}/>
+          <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="return" element={<BorrowReturn/>}/>
           <Route path="request" element={<BorrowRequest/>}/>
           <Route path="flagged" element={<FlaggedResources/>}/>
