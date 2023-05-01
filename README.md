@@ -112,11 +112,9 @@ git push
 1. g1-borrowing-module
 2. g2-seating-assignment
 3. g3-meeting-scheduler
-4. g4-bulleting-board
+4. g4-bulletin-board
 5. g5-chatbot
 6. g6-event-manager
 7. g7-inventory-module
 8. g8-grievances
 9. g9-room-issues
-
-HAPPY CODING! :D

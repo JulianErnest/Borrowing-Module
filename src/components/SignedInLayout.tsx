@@ -6,6 +6,7 @@ import { colors } from "../constants/colors";
 import { SignedInLinks } from "../constants/links";
 import { getLinkClass } from "../helpers/functions";
 
+
 function SignedInLayout() {
   const outlet = useOutlet();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const styles: any = {
     position: "absolute",
     top: "6vh",
     width: "12%",
-    height: "100vh",
+    minHeight: "100vh",
     backgroundColor: colors.brand,
     display: "flex",
     flexDirection: "column",
@@ -71,8 +72,8 @@ const styles: any = {
     fontSize: 15,
   },
   contentContainer: {
-    width: "86.9vw",
-    height: "100vh",
+    width: "84.4vw",
+    minHeight: "100vh",
     marginLeft: "12vw",
     marginTop: "6vh",
   },

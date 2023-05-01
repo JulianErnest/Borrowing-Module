@@ -1,30 +1,37 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { colors } from '../../constants/colors';
+
 
 function Borrowing() {
 
-  const userType = 'admin';
+  let userType = 'admin';
+  const location = useLocation();
 
-  if(userType === "admin" || userType === "labtech"){
+  const isActive = (path: string) => {
+    const currpath = "/borrowing/" + path;
+    console.log(currpath, location.pathname);
+    return location.pathname === "/borrowing/" + path
+  }
+
+  if (userType === "admin" || userType === "labtech"){
     return (
-      <div>
-        
-        <Link to="dashboard">Dashboard  </Link>
-        <Link to="flagged">Flagged  </Link>
-        <Link to="return">Return  </Link>
-        <Link to="search">Search  </Link>
-        <Link to="request">Request  </Link>
+      <>
+        <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
+          <Link to="dashboard"><h4 style={{color: isActive('dashboard') ? colors.brand : colors.text}}>Dashboard</h4></Link>
+          <Link to="pending-requests"><h4 style={{color: isActive('pending-requests') ? colors.brand : colors.text, paddingLeft: 50}}>Pending Requests </h4></Link>
+        </div>
         <Outlet />
-      </div>
+      </>
     )
   }else{
     return (
-      <div>
-        
-        <Link to="search">Search  </Link>
-        <Link to="request">Request  </Link>
+      <>
+        <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
+          <Link to="user-dashboard"><h4 style={{color: isActive('dashboard') ? colors.brand : colors.text}}>Dashboard</h4></Link>
+        </div>
         <Outlet />
-      </div>
+      </>
     )
   }
 }
