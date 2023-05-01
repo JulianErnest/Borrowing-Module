@@ -22,6 +22,7 @@ import FlaggedResources from "./modules/Borrowing/FlaggedResources";
 import BorrowDashboard from "./modules/Borrowing/Dashboard";
 import PendingRequests from "./modules/Borrowing/PendingRequests";
 import UserDashboard from "./modules/Borrowing/UserDashboard";
+import LabTechDashboard from "./modules/Borrowing/LabTechDashboard";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="dashboard" element={<BorrowDashboard/>}/>
           <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="user-dashboard" element={<UserDashboard />}/>
+          <Route path="labtech-dashboard" element={<LabTechDashboard />}/>
           <Route path="request" element={<BorrowRequest/>}/>
           <Route path="flagged" element={<FlaggedResources/>}/>
         </Route>

@@ -5,14 +5,15 @@ export interface Item {
   id?: number;
   name: string;
   description: string;
-  status: 'AVAILABLE' | 'BORROWED' | 'DONATED' | 'DELETED' | 'BORROW_PENDING' | 'UNAVAILABLE',
+  status: 'AVAILABLE' | 'BORROWED' | 'DONATED' | 'DELETED' | 'BORROW_PENDING' | 'RETURN_PENDING' | 'UNAVAILABLE',
   created_at: string;
   updated_at: string;
+  note?: string;
 }
 
 export interface Borrow_Transaction {
     id?: number;
-    status: 'APPROVED' | 'DELETED' | 'PENDING';
+    status: 'APPROVED' | 'DELETED' | 'PENDING_BORROW' | 'PENDING_RETURNED' | 'RETURNED' | 'REJECTED';
     borrow_date: string;
     return_date: string;
     created_at: string;

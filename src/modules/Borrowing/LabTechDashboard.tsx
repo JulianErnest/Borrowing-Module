@@ -1,24 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { colors } from '../../constants/colors';
 import { FaCheck } from "react-icons/fa";
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Borrow_Transaction, db } from '../../db/db';
 import { getDateString } from '../../helpers/functions';
 import { toast } from 'react-toastify';
+import LabTechModal from './LabTechModal';
+import { Transaction } from 'dexie';
 
-function PendingRequests() {
-    const myItems = useLiveQuery(() => db.borrow_transaction.where('status').equals('PENDING_BORROW').toArray()) ?? [];
+function LabTechDashboard() {
+    const myItems = useLiveQuery(() => db.borrow_transaction.where('status').equals('PENDING_RETURNED').toArray()) ?? [];
+    const [showModal, setShowModal] = useState(false);
+    const [transaction, setTransaction] = useState<Borrow_Transaction>();
 
     async function handleApprove(item: Borrow_Transaction) {
         await db.borrow_transaction.update(item.id as number, {
-            status: 'APPROVED',
+            status: 'RETURNED',
             updated_at: getDateString(),
         })
         await db.item.update(item.item_id as number, {
-            status: 'BORROWED',
+            status: 'AVAILABLE',
             updated_at: getDateString(),
         })
-        toast.success('Borrow request succesfully approved!', {
+        toast.success('Return request succesfully approved!', {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -31,16 +35,19 @@ function PendingRequests() {
     }
 
     async function handleReject(item: Borrow_Transaction) {
-        console.log('asdasd')
-        await db.borrow_transaction.update(item.id as number, {
-            status: 'REJECTED',
+        setTransaction(item);
+        setShowModal(true);
+    }
+
+    async function approveReturn(item: Borrow_Transaction) {
+        db.item.update(item.item_id, {
             updated_at: getDateString(),
-        })
-        await db.item.update(item.item_id as number, {
-            status: 'AVAILABLE',
+        });
+        db.borrow_transaction.update(item.id as number, {
+            status: 'RETURNED',
             updated_at: getDateString(),
-        })
-        toast.success('Borrow request succesfully rejected!', {
+        });
+        toast.success('Successfully approved return request!', {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -55,7 +62,7 @@ function PendingRequests() {
     return (
         <div style={{flex: 1, backgroundColor: '#F5F5F5', width: "87.4vw", height: "92vh"}}>
             <div style={{paddingLeft: 50, paddingTop: 30}}>
-                <h2 style={{padding: 0, margin: 0, paddingBottom: 30}}>Borrow Requests</h2>
+                <h2 style={{padding: 0, margin: 0, paddingBottom: 30}}>Return Requests</h2>
                 <input placeholder="Search" style={{height: 30, borderRadius: 5, paddingLeft: 5, width: 300}} />
             </div>
 
@@ -78,15 +85,15 @@ function PendingRequests() {
                             <p style={{ color: index % 2 === 0 ? colors.base : colors.brand}}>{item.description}</p>
                         </div>
                         <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>Daniel Bryan Gothong</p>
-                        <button  style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%', padding: 0, margin: 0, height: 40}} onClick={() => handleApprove(item)}>APPROVE</button>
+                        <button  style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%', padding: 0, margin: 0, height: 40}} onClick={() => approveReturn(item)}>APPROVE</button>
                         <button  style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%', padding: 0, margin: 0, marginLeft: 20, height: 40}} onClick={() => handleReject(item)}>REJECT</button>
                         <h5 style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%'}}>{item.updated_at}</h5>
                     </div>
                 ))}
             </div>
-
+            <LabTechModal isOpen={showModal} onRequestClose={() => setShowModal(false)} transaction={transaction as any} />
         </div>
   )
 }
 
-export default PendingRequests
+export default LabTechDashboard
