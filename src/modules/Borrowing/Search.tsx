@@ -44,7 +44,7 @@ function Search() {
       setFoundItems(filteredItems);
       
     }, 1000);
-    // whats up with these bitchass dogdick lines
+    // whats up with these dog lines
     
   };
 
@@ -56,7 +56,7 @@ function Search() {
     
     <div style={styles.container}>
       
-      <h1 style={styles.header}>DCISM DEPARTMENT RESOURCE SEARCH ENGINE</h1>
+      <h1 style={styles.header}><div style={styles.text}><center>DCISM DEPARTMENT RESOURCE SEARCH ENGINE</center></div></h1>
       <input
         type="text"
         value={searchTerm}
@@ -83,26 +83,32 @@ function Search() {
 
 const styles = {
   container: {
-    marginTop: '50px',
+    position: 'absolute',
+    marginTop: '2%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     
-    height: '600px',
-    width: '979px',
+    height: '80%',
+    width: '63%',
     marginLeft: '15%',
     paddingBottom: '10px',
     backgroundColor: colors.secondary,
     border: '3px solid #252525',
     
   },
+  
   header: {
     margin: '0',
     fontSize: '35px',
-    marginBottom: '2rem',
-    padding: '8px 20px',
+    marginBottom: '2.5rem',
+    justifyContent: 'center',
+    width:'100%',
     color: colors.base,
-    backgroundColor: colors.brand
+    backgroundColor: colors.brand,
+  },
+  text: {
+    padding: '20px'
   },
   input: {
     width: '100%',
