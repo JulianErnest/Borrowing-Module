@@ -60,7 +60,7 @@ const styles: any = {
     position: "absolute",
     top: "6vh",
     width: "12%",
-    minHeight: "100%",
+    minHeight: "100vh",
     backgroundColor: colors.brand,
     display: "flex",
     flexDirection: "column",
@@ -73,7 +73,7 @@ const styles: any = {
   },
   contentContainer: {
     width: "84.4vw",
-    height: "100vh",
+    minHeight: "100vh",
     marginLeft: "12vw",
     marginTop: "6vh",
   },

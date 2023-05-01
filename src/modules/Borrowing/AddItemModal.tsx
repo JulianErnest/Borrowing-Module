@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-modal';
 
 import CustomInput from '../../components/CustomInput';
+import { db } from '../../db/db';
+import { getDateString } from '../../helpers/functions';
+import { toast } from 'react-toastify';
 
 type Props = {
     isOpen: boolean;
@@ -9,6 +12,29 @@ type Props = {
 }
 
 function AddItemModal({isOpen, onRequestClose}: Props) {
+  const [itemName, setItemName] = useState('');
+  const [itemDescription, setItemDescription] = useState('');
+
+  async function addItem() {
+    await db.item.add({
+      name: itemName,
+      description: itemDescription,
+      status: 'AVAILABLE',
+      created_at: getDateString(),
+      updated_at: getDateString(),
+    })
+    toast.success('Item successfully added!', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+
   return (
     <Modal
         isOpen={isOpen}
@@ -21,15 +47,15 @@ function AddItemModal({isOpen, onRequestClose}: Props) {
                 <h2>Add Item</h2>
                 <div>
                     <p style={{padding: 0, margin: 0}}>Name</p>
-                    <input type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
+                    <input value={itemName} onChange={e => setItemName(e.target.value)} type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
                 </div>
                 <div>
                     <p style={{padding: 0, margin: 0, marginTop: 30}}>Description</p>
-                    <input type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
+                    <input value={itemDescription} onChange={e => setItemDescription(e.target.value)}  type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
                 </div>
                 <div style={{display: 'flex', marginTop: 50}}>
-                    <button onClick={onRequestClose} type="button" style={{marginRight: 20}}>Cancel</button>
-                    <button type="submit">Confirm</button>
+                    <button onClick={onRequestClose} type="button" style={{marginRight: 20, backgroundColor: '#626f8a'}}>Cancel</button>
+                    <button onClick={addItem} style={{backgroundColor: '#626f8a'}} type="submit">Confirm</button>
                 </div>
             </div>
         </form>
