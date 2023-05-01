@@ -2,28 +2,32 @@ import React, { useState } from 'react'
 import Modal from 'react-modal';
 
 import CustomInput from '../../components/CustomInput';
-import { db } from '../../db/db';
+import { Borrow_Transaction, db } from '../../db/db';
 import { getDateString } from '../../helpers/functions';
 import { toast } from 'react-toastify';
 
 type Props = {
     isOpen: boolean;
     onRequestClose: () => void;
+    transaction: Borrow_Transaction;
 }
 
-function AddItemModal({isOpen, onRequestClose}: Props) {
-  const [itemName, setItemName] = useState('');
+function LabTechModal({isOpen, onRequestClose, transaction}: Props) {
+  const [note, setNote] = useState('');
   const [itemDescription, setItemDescription] = useState('');
 
-  async function addItem() {
-    await db.item.add({
-      name: itemName,
-      description: itemDescription,
-      status: 'AVAILABLE',
-      created_at: getDateString(),
-      updated_at: getDateString(),
-    })
-    toast.success('Item successfully added!', {
+  async function rejectReturn(e: any) {
+    e.preventDefault();
+    db.item.update(transaction.item_id, {
+        status: 'UNAVAILABLE',
+        note,
+        updated_at: getDateString(),
+    });
+    db.borrow_transaction.update(transaction.id as number, {
+        status: 'RETURN_REJECTED',
+        updated_at: getDateString(),
+    });
+    toast.success('Successfully rejected return request!', {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -36,6 +40,7 @@ function AddItemModal({isOpen, onRequestClose}: Props) {
     onRequestClose();
   }
 
+
   return (
     <Modal
         isOpen={isOpen}
@@ -45,18 +50,18 @@ function AddItemModal({isOpen, onRequestClose}: Props) {
       >
         <form>
             <div style={{display: 'flex',  alignItems: 'center', flexDirection: 'column', paddingLeft: 80, paddingRight: 80}}>
-                <h2>Add Item</h2>
+                <h2>Confirm Reject Return Request</h2>
+                <h3>Item name: {transaction?.name}</h3>
+                <h3>Item description: {transaction?.description}</h3>
+                <h3>Borrower ID: {transaction?.student_id}</h3>
                 <div>
-                    <p style={{padding: 0, margin: 0}}>Name</p>
-                    <input value={itemName} onChange={e => setItemName(e.target.value)} type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
+                    <p style={{padding: 0, margin: 0}}>Note</p>
+                    <input value={note} onChange={e => setNote(e.target.value)} type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
                 </div>
-                <div>
-                    <p style={{padding: 0, margin: 0, marginTop: 30}}>Description</p>
-                    <input value={itemDescription} onChange={e => setItemDescription(e.target.value)}  type="text" required style={{paddingLeft: 20, padding: 10, width: 300}} />
-                </div>
+                <p>Admin will be made aware of the rejection and the reason</p>
                 <div style={{display: 'flex', marginTop: 50}}>
                     <button onClick={onRequestClose} type="button" style={{marginRight: 20, backgroundColor: '#626f8a'}}>Cancel</button>
-                    <button onClick={addItem} style={{backgroundColor: '#626f8a'}} type="submit">Confirm</button>
+                    <button onClick={rejectReturn} style={{backgroundColor: '#626f8a'}} type="submit">Confirm</button>
                 </div>
             </div>
         </form>
@@ -64,7 +69,7 @@ function AddItemModal({isOpen, onRequestClose}: Props) {
   )
 }
 
-export default AddItemModal
+export default LabTechModal
 
 const customStyles = {
   content: {

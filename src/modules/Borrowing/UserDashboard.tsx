@@ -5,19 +5,14 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Borrow_Transaction, Item, db } from '../../db/db';
 import ConfirmBorrowModal from './ConfirmBorrowModal';
 import { toast } from 'react-toastify';
-
-const data = [
-    {name: 'TUF 27 Inches Monitor', description: 'Room 467 unused monitor', borrowerName: "Daniel Bryan Gothong", status: 'AVAILABLE', updated: '4/20/1969'},
-    {name: 'TUF 27 Inches Monitor', description: 'Room 467 unused monitor', borrowerName: "Daniel Bryan Gothong", status: 'AVAILABLE', updated: '4/20/1969'},
-    {name: 'TUF 27 Inches Monitor', description: 'Room 467 unused monitor', borrowerName: "Daniel Bryan Gothong", status: 'AVAILABLE', updated: '4/20/1969'},
-    {name: 'TUF 27 Inches Monitor', description: 'Room 467 unused monitor', borrowerName: "Daniel Bryan Gothong", status: 'AVAILABLE', updated: '4/20/1969'},
-    {name: 'TUF 27 Inches Monitor', description: 'Room 467 unused monitor', borrowerName: "Daniel Bryan Gothong", status: 'AVAILABLE', updated: '4/20/1969'},
-];
+import ReturnItemModal from './ReturnItemModal';
 
 function UserDashboard() {
     const [showAll, setShowAll] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [showTransactionModal, setShowTransactionModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState<Item>();
+    const [selectedTransaction, setSelectedTransaction] = useState<Borrow_Transaction>();
     const allItems = useLiveQuery(() => db.item.where('status').equals('AVAILABLE').toArray()) ?? [];
     const myItems = useLiveQuery(() => db.borrow_transaction.where('student_id').equals(1).and((x) => x.status !== 'DELETED').toArray()) ?? [];
 
@@ -26,27 +21,12 @@ function UserDashboard() {
         setSelectedItem(item);
     }
 
-    function handleReturn(item: Borrow_Transaction) {
-
+    function handleTranasctionClick(item: Borrow_Transaction) {
+        console.log('item', item);
+        setShowTransactionModal(true);
+        setSelectedTransaction(item);
     }
 
-    // async function getBandsStartingWithA () {
-    //     // Query
-    //     const transactions = await db.item
-    //         .where('student_id')
-    //         .equals(1)
-    //         .toArray();
-        
-    //     // Attach resolved properies "genre" and "albums" on each band
-    //     // using parallel queries:
-    //     await Promise.all (transactions.map (async transact => {
-    //     transaction, band.albums] = await Promise.all([
-    //         db.genres.get (band.genreId),
-    //     ]);
-    //     }));
-        
-    //     return bands;
-    // }    
     return (
         <div style={{flex: 1, backgroundColor: '#F5F5F5', width: "87.4vw", height: "92vh"}}>
             <div style={{paddingLeft: 50, paddingTop: 30, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingRight: 40}}>
@@ -97,8 +77,8 @@ function UserDashboard() {
                                             <h4 style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '25%' }}>{item.name}</h4>
                                             <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '25%' }}>{item.description}</p>
                                             <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>{item.updated_at}</p>
-                                            <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>{item.status === 'PENDING' ? 'PENDING' : item.return_date}</p>
-                                            <button disabled={item.status === 'PENDING'} style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%'}} onClick={() => handleReturn(item)}>{item.status === 'PENDING' ? 'AWAITING APPROVAL' : 'RETURN'}</button>
+                                            <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>{item.status.includes('PENDING') ? item.status.replace(/_/g, ' ') : item.return_date}</p>
+                                            <button disabled={item.status === 'REJECTED' || item.status === 'PENDING_BORROW' || item.status === 'PENDING_RETURNED' || item.status === 'RETURNED'} style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%'}} onClick={() => handleTranasctionClick(item)}>{item.status === 'REJECTED' ? 'REJECTED' : item.status === 'RETURNED' ? 'RETURNED' : item.status.includes('PENDING') ? 'AWAITING APPROVAL' : 'RETURN'}</button>
                                         </div>
                                     )
                             )}
@@ -106,6 +86,7 @@ function UserDashboard() {
                 </>
             )}
             <ConfirmBorrowModal  selectedItem={selectedItem} isOpen={showModal} onRequestClose={() => setShowModal(false)} />
+            <ReturnItemModal selectedItem={selectedTransaction} isOpen={showTransactionModal} onRequestClose={() => setShowTransactionModal(false)} />
         </div>
   )
 }

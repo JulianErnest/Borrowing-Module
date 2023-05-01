@@ -19,7 +19,7 @@ function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
     e.preventDefault();
     if (selectedItem) {
         await db.borrow_transaction.add({
-            status: 'PENDING',
+            status: 'PENDING_BORROW',
             borrow_date: getDateString(),
             return_date: getWeekFromNowDate(),
             created_at: getDateString(),
@@ -32,7 +32,7 @@ function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
         await db.item.update(selectedItem.id as number, {
             status: 'BORROW_PENDING',
         })
-        toast.success('Item successfully added!', {
+        toast.success('Borrow item request successfully submitted!', {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -42,6 +42,7 @@ function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
             progress: undefined,
             theme: "light",
         });
+        onRequestClose();
     }
   }
 
