@@ -29,11 +29,17 @@ export interface User {
   first_name: string;
   last_name: string;
   email: string;
-  type: 'STUDENT' | 'LAB_TECH' | 'ADMIN',
+  type: 'STUDENT' | 'LAB_TECH' | 'ADMIN' | string,
   password: string;
   created_at: string;
   updated_at: string;
 }
+
+export type UserContextType = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
+};
+
 
 export interface Return_Request {
   id?: number;

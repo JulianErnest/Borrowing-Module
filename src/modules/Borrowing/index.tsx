@@ -1,20 +1,24 @@
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { colors } from '../../constants/colors';
-
+import { User, UserContextType } from '../../db/db';
+import { useEffect, useState, useContext } from 'react'
+import { db } from '../../db/db'
+import Login from '../Login';
+import { UserContext } from '../../context/UserContext'
 
 function Borrowing() {
-
-  let userType = 'ADMIN';
   const location = useLocation();
+  const context = useContext(UserContext) as UserContextType;
 
   const isActive = (path: string) => {
     const currpath = "/borrowing/" + path;
     console.log(currpath, location.pathname);
     return location.pathname === "/borrowing/" + path
   }
-
-  if (userType === "ADMIN") {
+  
+  
+  if (context.user?.type === 'ADMIN') {
     return (
       <>
         <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
@@ -28,7 +32,7 @@ function Borrowing() {
     )
   }
 
-  if (userType === "LAB_TECH") {
+  if (context.user?.type === "LAB_TECH") {
     return (
       <>
         <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>

@@ -2,28 +2,39 @@ import React from 'react'
 import USC from '../../assets/usc_tc_bunzel.jpg'
 import LOGO from '../../assets/usc_logo.png'
 import { colors } from '../../constants/colors'
-import { populate } from '../../db/populate'
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { db } from '../../db/db'
 import { User } from '../../db/db'
+import { UserContext } from '../../context/UserContext';
+import { UserContextType } from '../../db/db';
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const context = useContext(UserContext) as UserContextType;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const users = await db.user.toArray();
-    console.log('otin 8=D');
+    const userArray = await db.user.toArray();
+    const userx = userArray.find(user => user.email === email && user.password === password);
 
-    
-    const studentUser = users.find(user => user.email === email && user.password === password && user.type === 'STUDENT');
-    
-    if (studentUser) {
-      console.log('Logged in as student');
-      navigate('/landing');
+    if(context){
+      context.setUser({
+        first_name: userx?.first_name,
+        last_name: userx?.last_name,
+        email: email,
+        type: userx?.type,
+        password: password,
+        created_at: userx?.created_at,
+        updated_at: userx?.updated_at,
+      })
+    }
+
+    if (userx) {
+      console.log('Logged in as', userx.type, userx.id);
+      navigate('/dashboard');
     } else {
       console.log('Invalid email or password');
     }
