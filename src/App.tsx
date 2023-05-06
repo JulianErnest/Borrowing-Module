@@ -5,7 +5,6 @@ import Register from "./modules/Register";
 import SignedInLayout from "./components/SignedInLayout";
 import SignedOutLayout from "./components/SignedOutLayout";
 import Dashboard from "./modules/Dashboard";
-import Landing from "./modules/Landing";
 import Borrowing from "./modules/Borrowing";
 import MeetingScheduler from "./modules/MeetingScheduler";
 import BulletinBoard from "./modules/BulletinBoard";
@@ -32,6 +31,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         
         <Route path="/borrowing" element={<Borrowing />} >
+          <Route path="landing" element={<LandingPage/>}/>
           <Route path="dashboard" element={<BorrowDashboard/>}/>
           <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="user-dashboard" element={<UserDashboard />}/>
@@ -53,7 +53,6 @@ function App() {
       </Route>
       <Route element={<SignedOutLayout />} >
         <Route path="/" element={<Login/>} />
-        <Route path="/landing" element={<LandingPage/>} />
         <Route path="/register" element={<Register />} />
       </Route>
     </Routes>
