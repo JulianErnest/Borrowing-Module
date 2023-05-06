@@ -23,6 +23,7 @@ import BorrowDashboard from "./modules/Borrowing/Dashboard";
 import PendingRequests from "./modules/Borrowing/PendingRequests";
 import UserDashboard from "./modules/Borrowing/UserDashboard";
 import LabTechDashboard from "./modules/Borrowing/LabTechDashboard";
+import LandingPage from "./modules/Borrowing/LandingPage";
 
 function App() {
   return (
@@ -52,7 +53,7 @@ function App() {
       </Route>
       <Route element={<SignedOutLayout />} >
         <Route path="/" element={<Login/>} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/landing" element={<LandingPage/>} />
         <Route path="/register" element={<Register />} />
       </Route>
     </Routes>
