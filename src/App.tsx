@@ -5,7 +5,7 @@ import Register from "./modules/Register";
 import SignedInLayout from "./components/SignedInLayout";
 import SignedOutLayout from "./components/SignedOutLayout";
 import Dashboard from "./modules/Dashboard";
-import Landing from "./modules/Landing";
+import LandingPage from "./modules/Borrowing/LandingPage";
 import Borrowing from "./modules/Borrowing";
 import MeetingScheduler from "./modules/MeetingScheduler";
 import BulletinBoard from "./modules/BulletinBoard";
@@ -15,10 +15,6 @@ import Inventory from "./modules/Inventory";
 import Grievances from "./modules/Grievances";
 import RoomIssues from "./modules/RoomIssues";
 import SeatingAssignment from "./modules/SeatingAssignment";
-import Search from "./modules/Borrowing/Search";
-import BorrowReturn from "./modules/Borrowing/BorrowReturn";
-import BorrowRequest from "./modules/Borrowing/BorrowRequest";
-import FlaggedResources from "./modules/Borrowing/FlaggedResources";
 import BorrowDashboard from "./modules/Borrowing/Dashboard";
 import PendingRequests from "./modules/Borrowing/PendingRequests";
 import UserDashboard from "./modules/Borrowing/UserDashboard";
@@ -31,12 +27,11 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         
         <Route path="/borrowing" element={<Borrowing />} >
+          <Route path="landing-page" element={<LandingPage/>}/>
           <Route path="dashboard" element={<BorrowDashboard/>}/>
           <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="user-dashboard" element={<UserDashboard />}/>
           <Route path="labtech-dashboard" element={<LabTechDashboard />}/>
-          <Route path="request" element={<BorrowRequest/>}/>
-          <Route path="flagged" element={<FlaggedResources/>}/>
         </Route>
         
         
@@ -52,7 +47,6 @@ function App() {
       </Route>
       <Route element={<SignedOutLayout />} >
         <Route path="/" element={<Login/>} />
-        <Route path="/landing" element={<Landing />} />
         <Route path="/register" element={<Register />} />
       </Route>
     </Routes>

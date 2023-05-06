@@ -16,8 +16,7 @@ function Borrowing() {
     console.log(currpath, location.pathname);
     return location.pathname === "/borrowing/" + path
   }
-  
-  
+
   if (context.user?.type === 'ADMIN') {
     return (
       <>
@@ -38,9 +37,11 @@ function Borrowing() {
         <div style={{width: '100%', backgroundColor: '#f2f2f2', paddingLeft: 50, height: 70, display: 'flex', alignItems: 'center', borderBottomColor: colors.brand, borderBottomWidth: 1, borderBottomStyle: 'solid'}}>
           <Link to="labtech-dashboard"><h4 style={{color: isActive('dashboard') ? colors.brand : colors.text}}>Dashboard</h4></Link>
         </div>
+        <Outlet />
       </>
     )
   }
+
 
     return (
       <>
