@@ -22,6 +22,7 @@ function Login() {
 
     if(context){
       context.setUser({
+        id: userx?.id,
         first_name: userx?.first_name,
         last_name: userx?.last_name,
         email: email,
@@ -31,7 +32,7 @@ function Login() {
         updated_at: userx?.updated_at,
       })
     }
-
+    console.log(userx)
     if (userx) {
       console.log('Logged in as', userx.type, userx.id);
       navigate('/dashboard');

@@ -5,6 +5,7 @@ import Register from "./modules/Register";
 import SignedInLayout from "./components/SignedInLayout";
 import SignedOutLayout from "./components/SignedOutLayout";
 import Dashboard from "./modules/Dashboard";
+import Landing from "./modules/Landing";
 import Borrowing from "./modules/Borrowing";
 import MeetingScheduler from "./modules/MeetingScheduler";
 import BulletinBoard from "./modules/BulletinBoard";
@@ -14,10 +15,6 @@ import Inventory from "./modules/Inventory";
 import Grievances from "./modules/Grievances";
 import RoomIssues from "./modules/RoomIssues";
 import SeatingAssignment from "./modules/SeatingAssignment";
-import Search from "./modules/Borrowing/Search";
-import BorrowReturn from "./modules/Borrowing/BorrowReturn";
-import BorrowRequest from "./modules/Borrowing/BorrowRequest";
-import FlaggedResources from "./modules/Borrowing/FlaggedResources";
 import BorrowDashboard from "./modules/Borrowing/Dashboard";
 import PendingRequests from "./modules/Borrowing/PendingRequests";
 import UserDashboard from "./modules/Borrowing/UserDashboard";
@@ -36,8 +33,6 @@ function App() {
           <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="user-dashboard" element={<UserDashboard />}/>
           <Route path="labtech-dashboard" element={<LabTechDashboard />}/>
-          <Route path="request" element={<BorrowRequest/>}/>
-          <Route path="flagged" element={<FlaggedResources/>}/>
         </Route>
         
         
