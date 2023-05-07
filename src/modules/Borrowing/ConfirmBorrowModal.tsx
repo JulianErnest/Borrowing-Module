@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from 'react-modal';
 
 import CustomInput from '../../components/CustomInput';
-import { Item, db } from '../../db/db';
+import { Item, db, UserContextType } from '../../db/db';
 import { getDateString, getWeekFromNowDate } from '../../helpers/functions';
 import { toast } from 'react-toastify';
-
+import { UserContext } from '../../context/UserContext';
 type Props = {
     isOpen: boolean;
     onRequestClose: () => void;
@@ -14,7 +14,8 @@ type Props = {
 }
 
 function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
-
+  const context = useContext(UserContext) as UserContextType;
+  console.log(context.user?.id)
   async function addItem(e: any) {
     e.preventDefault();
     if (selectedItem) {
@@ -26,9 +27,12 @@ function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
             updated_at: getDateString(),
             item_id: selectedItem.id as number,
             name: selectedItem.name,
+            first_name: context.user?.first_name as string,
+            last_name: context.user?.last_name as string,
             description: selectedItem.description,
-            student_id: 1,
+            student_id: context.user?.id as number,
         })
+        
         await db.item.update(selectedItem.id as number, {
             status: 'BORROW_PENDING',
         })
@@ -42,6 +46,7 @@ function ConfirmBorrowModal({isOpen, onRequestClose, selectedItem}: Props) {
             progress: undefined,
             theme: "light",
         });
+        
         onRequestClose();
     }
   }

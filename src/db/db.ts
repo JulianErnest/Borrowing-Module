@@ -22,6 +22,8 @@ export interface Borrow_Transaction {
     updated_at: string;
     item_id: number;
     student_id: number;
+    first_name: string;
+    last_name: string;
 }
 
 export interface User {

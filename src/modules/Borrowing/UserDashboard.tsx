@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { colors } from '../../constants/colors'
 import { useLiveQuery } from 'dexie-react-hooks';
-import { Borrow_Transaction, Item, db } from '../../db/db';
+import { Borrow_Transaction, Item, db, UserContextType } from '../../db/db';
 import ConfirmBorrowModal from './ConfirmBorrowModal';
 import { toast } from 'react-toastify';
 import ReturnItemModal from './ReturnItemModal';
+import { UserContext } from '../../context/UserContext';
 
 function UserDashboard() {
     const [showAll, setShowAll] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showTransactionModal, setShowTransactionModal] = useState(false);
+    const context = useContext(UserContext) as UserContextType;
+    const userId = context.user?.id as number;
     const [selectedItem, setSelectedItem] = useState<Item>();
     const [selectedTransaction, setSelectedTransaction] = useState<Borrow_Transaction>();
     const allItems = useLiveQuery(() => db.item.where('status').equals('AVAILABLE').toArray()) ?? [];
-    const myItems = useLiveQuery(() => db.borrow_transaction.where('student_id').equals(1).and((x) => x.status !== 'DELETED').toArray()) ?? [];
+    const myItems = useLiveQuery(() => db.borrow_transaction.where('student_id').equals(userId).and((x) => x.status !== 'DELETED').toArray()) ?? [];
 
     function handleItemClick(item: Item) {
         setShowModal(true);

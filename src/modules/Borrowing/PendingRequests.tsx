@@ -51,7 +51,7 @@ function PendingRequests() {
             theme: "light",
         });
     }
-
+    
     return (
         <div style={{flex: 1, backgroundColor: '#F5F5F5', width: "87.4vw", height: "92vh"}}>
             <div style={{paddingLeft: 50, paddingTop: 30}}>
@@ -77,7 +77,7 @@ function PendingRequests() {
                             <h4 style={{ color: index % 2 === 0 ? colors.base : colors.brand}}>{item.name}</h4>
                             <p style={{ color: index % 2 === 0 ? colors.base : colors.brand}}>{item.description}</p>
                         </div>
-                        <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>Daniel Bryan Gothong</p>
+                        <p style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%', paddingLeft: 50 }}>{item.first_name} {item.last_name}</p>
                         <button  style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%', padding: 0, margin: 0, height: 40}} onClick={() => handleApprove(item)}>APPROVE</button>
                         <button  style={{marginRight: 25, backgroundColor: '#626f8a', width: '15%', padding: 0, margin: 0, marginLeft: 20, height: 40}} onClick={() => handleReject(item)}>REJECT</button>
                         <h5 style={{ color: index % 2 === 0 ? colors.base : colors.brand, width: '15%'}}>{item.updated_at}</h5>
