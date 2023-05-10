@@ -28,7 +28,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         
         <Route path="/borrowing" element={<Borrowing />} >
-          <Route path="landing" element={<LandingPage/>}/>
           <Route path="dashboard" element={<BorrowDashboard/>}/>
           <Route path="pending-requests" element={<PendingRequests />}/>
           <Route path="user-dashboard" element={<UserDashboard />}/>
@@ -47,7 +46,8 @@ function App() {
         <Route path="/room-issues" element={<RoomIssues />} />
       </Route>
       <Route element={<SignedOutLayout />} >
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<LandingPage/>} />
+        <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register />} />
       </Route>
     </Routes>

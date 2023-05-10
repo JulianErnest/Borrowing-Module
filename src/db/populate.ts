@@ -13,10 +13,10 @@ export async function populate() {
             updated_at: getDateString(),
         },
         {
-            first_name: 'Nigger',
+            first_name: 'Student',
             last_name: 'Ern',
-            email: 'niggerern@usc.edu.ph',
-            password: 'nigger',
+            email: 'studentern@usc.edu.ph',
+            password: '!password2023',
             type: 'STUDENT',
             created_at: getDateString(),
             updated_at: getDateString(),
