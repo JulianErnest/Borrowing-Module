@@ -57,6 +57,9 @@ button {
   font-family: Montserrat;
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: border-color 0.25s;
 }
 
