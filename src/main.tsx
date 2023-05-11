@@ -13,10 +13,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <UserProvider>
       <App />
       
-          
-      
       <ToastContainer />
-      <Borrowing />
     </UserProvider>
   </BrowserRouter>
 )

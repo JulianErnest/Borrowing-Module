@@ -10,7 +10,7 @@ import { getDateString } from '../../helpers/functions';
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
-  const items = useLiveQuery(() => db.item.where('status').notEqual('DELETED').toArray())?.sort((a, b) => new Date(a.updated_at).getDate() - new Date(b.updated_at).getDate()) ?? [];
+  const items = useLiveQuery(() => db.item.where('status').notEqual('').toArray())?.sort((a, b) => new Date(a.updated_at).getDate() - new Date(b.updated_at).getDate()) ?? [];
 
   async function deleteItem(item: Item) {
     if (item.status === 'BORROWED' || item.status === 'BORROW_PENDING' || item.status === 'DONATED' || item.status === 'RETURN_PENDING') {
